@@ -1,13 +1,19 @@
 import React from 'react';
-//import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+//const connection = require('./routes');
 
 class App extends React.Component {
+
     constructor(props) {
         super(props);
 
         this.state = {
-            value: ''
+            value: '',
+            food: [],
         };
+
+        fetch('http://localhost:4000/food')
+            .then(response => response.json()).
+        then(food => (this.setState({food: food.data})));
     }
 
     handleNameOnChange(e) {
@@ -38,9 +44,30 @@ class App extends React.Component {
 
     }
 
+
     render() {
         return (
+
             <div className="wrap">
+                <table border="1">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Cuisine</th>
+                        <th>Phone Number</th>
+                        <th>Price Per Guest</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{this.state.name}</td>
+                        <td>{this.state.cuisine}</td>
+                        <td>{this.state.phone}</td>
+                        <td>{this.state.price}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
                 <h1 className="string"> Name </h1>
                 <input type="text" id="name" value={this.state.name} onChange={ (e) => this.handleNameOnChange(e) } />
                 <h1 className="string">Cuisine</h1>
@@ -57,7 +84,9 @@ class App extends React.Component {
             </div>
         )
 
+
     }
+
 }
 
 export default App;
