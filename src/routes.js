@@ -22,6 +22,9 @@ connection.connect(err => {
     if (err) {
         return err;
     }
+    else {
+        console.log("CONNECTED TO SERVER");
+    }
 });
 
 app.get('/food', (req, res) => {
