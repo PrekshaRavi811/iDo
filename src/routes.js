@@ -46,7 +46,7 @@ app.get('/food/add', (req, res) => {
 })
 
 app.listen(4000, () => {
-    console.log('Go to http://localhost:4000/food to see posts');
+    console.log('http://localhost:4000/food');
 });
 
 //module.export = connection;
