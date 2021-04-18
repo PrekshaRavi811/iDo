@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Component } from 'react';
 
-class display extends React.Component{
+class display extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -53,8 +53,7 @@ class display extends React.Component{
     };
     render() {
         return (
-            <div className="form">
-
+            <div>
                 <p> Name </p>
                 <input type="text" id="name" value={this.state.name} onChange={ (e) => this.handleNameOnChange(e) } />
                 <p>Cuisine</p>
@@ -69,9 +68,7 @@ class display extends React.Component{
                 <button onClick={this.addToDatabase}> SUBMIT </button>
             </div>
         );
-
     }
-
 }
 
 export default display;
