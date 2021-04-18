@@ -20,8 +20,8 @@ class App extends React.Component {
 
     getFood = _=> {
         fetch('http://localhost:4000/food')
-            .then(response => response.json()).
-        then(food => (this.setState({food: food.data})));
+            .then(response => response.json())
+            .then(food => (this.setState({food: food.data})));
     };
 
     handleNameOnChange(e) {
