@@ -16,6 +16,7 @@ class App extends React.Component {
                 <Route exact path="/getForm" component={display} />
                 <Route exact path="/showTable" component={showTable} />
 
+
             </div>
         );
     };
