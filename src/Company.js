@@ -1,18 +1,17 @@
 import React from 'react';
-import Display from './display';
+import Food from './FoodDisplay';
 import ShowTable from './showTable';
-import home from './home';
+import homeCompany from './HomeCompany';
 import {Route, Link} from "react-router-dom";
-import NavBar from './NavBar';
+import NavBarCompany from './NavBarCompany';
 
 class Company extends React.Component {
     render() {
         return (
             <div>
-                <NavBar />
-                <Route exact path="/" component={home} />
-                <Route exact path="/getForm" component={Display} />
-                <Route exact path="/showTable" component={ShowTable} />
+                <NavBarCompany />
+                <Route exact path="/" component={homeCompany} />
+                <Route exact path="/foodCompany" component={Food} />
             </div>
         );
     };

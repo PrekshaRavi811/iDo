@@ -37,10 +37,11 @@ app.get('/food', (req, res) => {
 });
 
 app.get('/food/add', (req, res) => {
-    const {name, cuisine, phone, price} = req.query;
-    const INSERT_FOOD = 'INSERT INTO food VALUES (\''+ name + '\', \'' + cuisine + '\',' + phone + ',' + price + ')';
+    const {id, name, cuisine, phone, price} = req.query;
+    const INSERT_FOOD = 'INSERT INTO food VALUES (\'' + id + '\',\''+ name + '\', \'' + cuisine + '\',\'' + phone + '\',' + price + ');';
+    console.log(INSERT_FOOD);
     connection.query(INSERT_FOOD, (error, results) => {
-       if (error) console.log(error);
+       if (error) console.log("Adding Error");
        res.send("SUCCESSFULLY ADDED DETAILS of ' + !");
     });
 })
