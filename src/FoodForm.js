@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
-class display extends Component{
+class foodForm extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             name: '',
             cuisine: '',
             phone: 0,
             price: 0
         };
     }
+    handleIdOnChange(e) {
+        this.setState({
+            id: e.target.value,
+        });
+    };
+
     handleNameOnChange(e) {
         this.setState({
             name: e.target.value,
@@ -35,16 +43,18 @@ class display extends Component{
     };
     getFood = _=> {
         fetch('http://localhost:4000/food')
-            .then(response => response.json()).
-        then(food => (this.setState({food: food.data})));
+            .then(response => response.json())
+        .then(food => (this.setState({food: food.data})));
     };
 
     addToDatabase = _ => {
-        fetch('http://localhost:4000/food/add?name=' + this.state.name + '&cuisine='
+        fetch('http://localhost:4000/food/add?id=' + this.state.id + '&name=' + this.state.name + '&cuisine='
             + this.state.cuisine + '&phone=' + this.state.phone
             + '&price=' + this.state.price)
             .then(this.getFood);
+
         this.setState({
+            id: '',
             name: '',
             cuisine: '',
             phone: '',
@@ -54,6 +64,8 @@ class display extends Component{
     render() {
         return (
             <div>
+                <p> Company ID </p>
+                <input type="text" id="id" value={this.state.id} onChange={ (e) => this.handleIdOnChange(e) } />
                 <p> Name </p>
                 <input type="text" id="name" value={this.state.name} onChange={ (e) => this.handleNameOnChange(e) } />
                 <p>Cuisine</p>
@@ -71,5 +83,5 @@ class display extends Component{
     }
 }
 
-export default display;
+export default foodForm;
 

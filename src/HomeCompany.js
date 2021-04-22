@@ -1,6 +1,6 @@
 import React from 'react';
 
-function home() {
+function homeCompany() {
     return (
         <div>
             <p>Welcome to iDo! Use the links above to navigate through our website.</p>
@@ -8,4 +8,4 @@ function home() {
     );
 }
 
-export default home;
+export default homeCompany;

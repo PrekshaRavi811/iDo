@@ -37,12 +37,27 @@ app.get('/food', (req, res) => {
 });
 
 app.get('/food/add', (req, res) => {
-    const {name, cuisine, phone, price} = req.query;
-    const INSERT_FOOD = 'INSERT INTO food VALUES (\''+ name + '\', \'' + cuisine + '\',' + phone + ',' + price + ')';
+    const {id, name, cuisine, phone, price} = req.query;
+    const INSERT_FOOD = 'INSERT INTO food VALUES (\'' + id + '\',\''+ name + '\', \'' + cuisine + '\',\'' + phone + '\',' + price + ');';
     connection.query(INSERT_FOOD, (error, results) => {
-       if (error) console.log(error);
-       res.send("SUCCESSFULLY ADDED DETAILS of ' + !");
+       if (error) console.log("Adding Error");
     });
+});
+
+app.get('/food/delete', (req, res) => {
+    const { id } = req.query;
+    const FIND_FOOD = 'SELECT * FROM food WHERE id = \'' + id + '\'';
+    const DELETE_FOOD = 'DELETE FROM food WHERE id = \'' + id + '\'';
+    connection.query(FIND_FOOD, (error, results) => {
+        if (results.length > 0) {
+            connection.query(DELETE_FOOD, (error) => {
+                res.send("Successfully deleted your information.");
+            });
+        }
+        else {
+            res.send("Incorrect ID. Try again!");
+        }
+    })
 })
 
 app.listen(4000, () => {
