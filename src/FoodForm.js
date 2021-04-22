@@ -43,8 +43,8 @@ class foodForm extends Component{
     };
     getFood = _=> {
         fetch('http://localhost:4000/food')
-            .then(response => response.json()).
-        then(food => (this.setState({food: food.data})));
+            .then(response => response.json())
+        .then(food => (this.setState({food: food.data})));
     };
 
     addToDatabase = _ => {
@@ -52,6 +52,7 @@ class foodForm extends Component{
             + this.state.cuisine + '&phone=' + this.state.phone
             + '&price=' + this.state.price)
             .then(this.getFood);
+
         this.setState({
             id: '',
             name: '',

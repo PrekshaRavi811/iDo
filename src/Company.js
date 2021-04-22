@@ -1,5 +1,5 @@
 import React from 'react';
-import Food from './FoodDisplay';
+import Food from './FoodCompany';
 import ShowTable from './showTable';
 import homeCompany from './HomeCompany';
 import {Route, Link} from "react-router-dom";

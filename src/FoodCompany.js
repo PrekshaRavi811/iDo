@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FoodForm from './FoodForm';
+import FoodDelete from './FoodDelete';
 
 class foodDisplay extends Component{
     constructor(props) {
@@ -37,6 +38,7 @@ class foodDisplay extends Component{
         return (
             <div>
                 { addButton && <FoodForm /> }
+                { deleteButton && <FoodDelete />}
                 { !addButton && !updateButton && !deleteButton &&
                 <p> <button onClick={this.onClickAdd}> I want to add my company </button>
                     <button onClick={this.onClickUpdate}> I want to update my details </button>
