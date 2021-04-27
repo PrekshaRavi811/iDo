@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import FoodForm from './FoodForm';
-import FoodDelete from './FoodDelete';
+import CakeForm from './CakeForm';
+import CakeDelete from './CakeDelete';
 
-class foodDisplay extends Component{
+class cakeCompany extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -16,7 +16,7 @@ class foodDisplay extends Component{
     }
 
     onClickAdd () {
-        this.setState({addButton: true});
+        this.setState({ addButton: true });
     }
 
     onClickUpdate () {
@@ -37,8 +37,8 @@ class foodDisplay extends Component{
         const val = !addButton && !updateButton && !deleteButton;
         return (
             <div>
-                { addButton && <FoodForm /> }
-                { deleteButton && <FoodDelete />}
+                { addButton && <CakeForm /> }
+                { deleteButton && <CakeDelete />}
                 { !addButton && !updateButton && !deleteButton &&
                 <p> <button onClick={this.onClickAdd}> I want to add my company </button>
                     <button onClick={this.onClickUpdate}> I want to update my details </button>
@@ -48,5 +48,5 @@ class foodDisplay extends Component{
     }
 }
 
-export default foodDisplay;
+export default cakeCompany;
 
