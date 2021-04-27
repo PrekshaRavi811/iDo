@@ -58,7 +58,31 @@ app.get('/food/delete', (req, res) => {
             res.send("Incorrect ID. Try again!");
         }
     })
-})
+});
+
+app.get('/cake/add', (req, res) => {
+    const {id, name, price, phone, size} = req.query;
+    const INSERT_FOOD = 'INSERT INTO cake VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + size + ');';
+    connection.query(INSERT_FOOD, (error, results) => {
+        if (error) console.log(INSERT_FOOD + "\n" + "Adding Error");
+    });
+});
+
+app.get('/cake/delete', (req, res) => {
+    const { id } = req.query;
+    const FIND_FOOD = 'SELECT * FROM cake WHERE id = \'' + id + '\'';
+    const DELETE_FOOD = 'DELETE FROM cake WHERE id = \'' + id + '\'';
+    connection.query(FIND_FOOD, (error, results) => {
+        if (results.length > 0) {
+            connection.query(DELETE_FOOD, (error) => {
+                res.send("Successfully deleted your information.");
+            });
+        }
+        else {
+            res.send("Incorrect ID. Try again!");
+        }
+    })
+});
 
 app.listen(4000, () => {
     console.log('http://localhost:4000/food');
