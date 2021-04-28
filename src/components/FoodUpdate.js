@@ -92,10 +92,7 @@ class FoodUpdate extends Component {
             phone: 0,
             price: 0,
         });
-
         this.state.food = [];
-        alert(this.state.food.length);
-
     };
 
 
