@@ -12,12 +12,10 @@ class FoodUpdate extends Component {
             price: 0,
             message: '',
             success: false,
-            n: false,
-            updateButton: false,
             food: []
         };
         this.onClickUpdate = this.onClickUpdate.bind(this);
-
+        this.render = this.render.bind(this);
     }
 
     onClickUpdate() {
@@ -57,49 +55,47 @@ class FoodUpdate extends Component {
     };
 
     setSuccess = _ => {
-        let str = "Successfully found your information.";
-        //let compare = this.state.message.toLocaleString().localeCompare(str.toLocaleString());
-        let compare = this.state.message == str;
-        this.setState({n: compare});
-
-        if (compare) {
-            this.setState({
-                success: true
-            });
+        if (this.state.food.length > 0) {
+            this.state.success = true;
+            this.state.id = this.state.food[0].id;
+            this.state.name = this.state.food[0].name;
+            this.state.cuisine = this.state.food[0].cuisine;
+            this.state.phone = this.state.food[0].phone;
+            this.state.price = this.state.food[0].price;
+        }
+        else {
+            alert("No such ID exists!")
         }
     };
 
     findCompany = _ => {
 
-        this.setState({message: " "});
-
         fetch('http://localhost:4000/food/find?id=' + this.state.id)
-            .then(response => response.text())
-            .then(food => (this.setState({food: food.data})));
-
-        fetch('http://localhost:4000/food/find?id=' + this.state.id)
-            .then(response => response.text())
-            .then(text => this.setState({message: text}));
-
-        this.setState({
-            id: ''
-        });
+            .then(response => response.json())
+            .then(food => (this.state.food = food.data));
 
         this.setSuccess();
     };
 
     updateDatabase = _ => {
-        fetch('http://localhost:4000/food/update?id=' + this.state.id)
-            .then(response => response.text())
-            .then(text => this.setState({message: text}));
-
-        if (this.state.message === 'Successfully updated your information.') {
-
-        }
+        fetch('http://localhost:4000/food/update?id=' + this.state.id
+            + '&name=' + this.state.name
+            + '&cuisine=' + this.state.cuisine
+            + '&phone=' + this.state.phone
+            + '&price=' + this.state.price).then(r => r.text());
 
         this.setState({
-            id: ''
-        })
+            success: false,
+            id: '',
+            name: '',
+            cuisine: '',
+            phone: 0,
+            price: 0,
+        });
+
+        this.state.food = [];
+        alert(this.state.food.length);
+
     };
 
 
@@ -107,10 +103,6 @@ class FoodUpdate extends Component {
         fetch('http://localhost:4000/food/find?id=' + this.state.id)
             .then(response => response.json())
             .then(food => (this.setState({food: food.data})));
-
-        this.state.food && this.state.food.map((food, ) => {
-            this.setState({name: food.name})}
-        )
 
         return (
             <div>
@@ -120,27 +112,21 @@ class FoodUpdate extends Component {
                 {!this.state.success && <button onClick={this.findCompany}> UPDATE </button>}
                 {!this.state.success && <p>{this.state.message} </p>}
 
-                {this.state.success && <p> Company ID </p>}
-                {this.state.success && this.state.food && <input type="text" id="id" value={this.state.id} onChange={ (e) => this.handleIdOnChange(e) } />}
                 {this.state.success && <p> Name </p>}
                 {this.state.success && this.state.food && <input type="text" id="name" value={this.state.name} onChange={ (e) => this.handleNameOnChange(e) } />}
                 {this.state.success && <p>Cuisine</p>}
-                {this.state.success && this.state.food && <input type="text" id="cuisine" value={this.state.food.cuisine} onChange={ (e) => this.handleCuisineOnChange(e) }/>}
+                {this.state.success && this.state.food && <input type="text" id="cuisine" value={this.state.cuisine} onChange={ (e) => this.handleCuisineOnChange(e) }/>}
                 {this.state.success && <p>Phone Number</p>}
-                {this.state.success && this.state.food && <input type="number" id="phone" value={this.state.food.phone} onChange={ (e) => this.handlePhoneOnChange(e) }/>}
+                {this.state.success && this.state.food && <input type="number" id="phone" value={this.state.phone} onChange={ (e) => this.handlePhoneOnChange(e) }/>}
                 {this.state.success && <p>Price Per Guest</p>}
-                {this.state.success && this.state.food && <input type="number" id="price" value={this.state.food.price} onChange={ (e) => this.handlePriceOnChange(e) }/>}
+                {this.state.success && this.state.food && <input type="number" id="price" value={this.state.price} onChange={ (e) => this.handlePriceOnChange(e) }/>}
 
-                {this.state.success && <p className="string"> Hi {this.state.name}! You provide {this.state.cuisine} food and your contact number is {this.state.phone}. Your average price per guest is ${this.state.price}. Is your information correct? </p>}
+                {this.state.success && <p className="string"> Hi {this.state.name}!
+                    You provide {this.state.cuisine} food and your contact number is {this.state.phone}.
+                    Your average price per guest is ${this.state.price}.
+                    Is your information correct? </p>}
 
                 {this.state.success && <button onClick={this.updateDatabase}> SUBMIT </button>}
-                <body>
-                {this.state.success && this.state.food.map((food, index) => {
-                        return (
-                            <h1> food.name </h1>
-                        )
-                    })}
-                </body>
 
             </div>
         );
