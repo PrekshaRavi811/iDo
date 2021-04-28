@@ -60,6 +60,29 @@ app.get('/food/delete', (req, res) => {
     })
 });
 
+app.get('/food/find', (req, res) => {
+    const { id } = req.query;
+    const FIND_FOOD = 'SELECT * FROM food WHERE id = \'' + id + '\';'
+    connection.query(FIND_FOOD, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/food/update', (req, res) => {
+    const { id, name, cuisine, phone, price } = req.query;
+    const UPDATE_FOOD = 'UPDATE food SET id = \'' + id
+        + '\', name = \''+ name
+        + '\', cuisine = \'' + cuisine
+        + '\', phone = \'' + phone
+        + '\', price = ' + price
+        + ' WHERE id = \'' + id + '\';';
+    connection.query(UPDATE_FOOD, (error, results) => {
+       if (!error)  console.log("Updated successfully")
+    })
+});
+
 app.get('/cake/add', (req, res) => {
     const {id, name, price, phone, size} = req.query;
     const INSERT_FOOD = 'INSERT INTO cake VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + size + ');';
@@ -75,6 +98,30 @@ app.get('/cake/delete', (req, res) => {
     connection.query(FIND_FOOD, (error, results) => {
         if (results.length > 0) {
             connection.query(DELETE_FOOD, (error) => {
+                res.send("Successfully deleted your information.");
+            });
+        }
+        else {
+            res.send("Incorrect ID. Try again!");
+        }
+    })
+});
+
+app.get('/dress/add', (req, res) => {
+    const {id, name, style, price, phone} = req.query;
+    const INSERT_DRESS = 'INSERT INTO dress VALUES (\'' + id + '\',\''+ name + '\', \'' + style + '\', ' + price + ',\'' + phone + '\'' + ');';
+    connection.query(INSERT_DRESS, (error, results) => {
+        if (error) console.log(INSERT_DRESS + "\n" + "Adding Error");
+    });
+});
+
+app.get('/dress/delete', (req, res) => {
+    const { id } = req.query;
+    const FIND_DRESS = 'SELECT * FROM dress WHERE id = \'' + id + '\'';
+    const DELETE_DRESS = 'DELETE FROM dress WHERE id = \'' + id + '\'';
+    connection.query(FIND_DRESS, (error, results) => {
+        if (results.length > 0) {
+            connection.query(DELETE_DRESS, (error) => {
                 res.send("Successfully deleted your information.");
             });
         }
