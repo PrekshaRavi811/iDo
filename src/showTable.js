@@ -1,6 +1,5 @@
 import React from "react";
 
-
 class showTable extends React.Component {
     constructor(props) {
         super(props);
@@ -17,6 +16,7 @@ class showTable extends React.Component {
                 <table border="1">
                     <thead>
                     <tr>
+                        <th> ID </th>
                         <th>Name</th>
                         <th>Cuisine</th>
                         <th>Phone Number</th>
@@ -26,6 +26,7 @@ class showTable extends React.Component {
                     <tbody>
                     {this.state.food && this.state.food.map((food, index) => {
                         return (<tr>
+                            <td>{food.id}</td>
                             <td>{food.name}</td>
                             <td>{food.cuisine}</td>
                             <td>{food.phone}</td>

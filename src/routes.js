@@ -62,38 +62,24 @@ app.get('/food/delete', (req, res) => {
 
 app.get('/food/find', (req, res) => {
     const { id } = req.query;
-    const FIND_FOOD = 'SELECT * FROM food WHERE id = \'' + id + '\'';
+    const FIND_FOOD = 'SELECT * FROM food WHERE id = \'' + id + '\';'
     connection.query(FIND_FOOD, (error, results) => {
         res.json ({
             data: results
         });
-        if (results.length > 0) {
-
-            connection.query(FIND_FOOD, (error) => {
-                res.send("Successfully found your information.");
-            });
-
-        }
-        else {
-            res.send("Incorrect ID. Try again!");
-        }
     });
 });
 
 app.get('/food/update', (req, res) => {
-    const { id } = req.query;
-    const FIND_FOOD = 'SELECT * FROM food WHERE id = \'' + id + '\'';
-    const UPDATE_FOOD = 'DELETE FROM food WHERE id = \'' + id + '\'';
-    connection.query(FIND_FOOD, (error, results) => {
-        if (error) console.log("Updating Error");
-        if (results.length > 0) {
-            connection.query(UPDATE_FOOD, (error) => {
-                res.send("Successfully updated your information.");
-            });
-        }
-        else {
-            res.send("Incorrect ID. Try again!");
-        }
+    const { id, name, cuisine, phone, price } = req.query;
+    const UPDATE_FOOD = 'UPDATE food SET id = \'' + id
+        + '\', name = \''+ name
+        + '\', cuisine = \'' + cuisine
+        + '\', phone = \'' + phone
+        + '\', price = ' + price
+        + ' WHERE id = \'' + id + '\';';
+    connection.query(UPDATE_FOOD, (error, results) => {
+       if (!error)  console.log("Updated successfully")
     })
 });
 
