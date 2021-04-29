@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CakeForm from './CakeForm';
 import CakeDelete from './CakeDelete';
+import CakeUpdate from "./CakeUpdate";
 
 class cakeCompany extends Component{
     constructor(props) {
@@ -38,6 +39,7 @@ class cakeCompany extends Component{
         return (
             <div>
                 { addButton && <CakeForm /> }
+                { updateButton && <CakeUpdate />}
                 { deleteButton && <CakeDelete />}
                 { !addButton && !updateButton && !deleteButton &&
                 <p> <button onClick={this.onClickAdd}> I want to add my company </button>

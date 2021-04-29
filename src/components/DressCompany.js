@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DressForm from './DressForm';
 import DressDelete from './DressDelete';
+import DressUpdate from "./DressUpdate";
 
 class dressCompany extends Component{
     constructor(props) {
@@ -38,6 +39,7 @@ class dressCompany extends Component{
         return (
             <div>
                 { addButton && <DressForm /> }
+                { updateButton && <DressUpdate />}
                 { deleteButton && <DressDelete />}
                 { !addButton && !updateButton && !deleteButton &&
                 <p> <button onClick={this.onClickAdd}> I want to add my company </button>

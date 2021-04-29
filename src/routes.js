@@ -107,6 +107,29 @@ app.get('/cake/delete', (req, res) => {
     })
 });
 
+app.get('/cake/find', (req, res) => {
+    const { id } = req.query;
+    const FIND_CAKE = 'SELECT * FROM cake WHERE id = \'' + id + '\';'
+    connection.query(FIND_CAKE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/cake/update', (req, res) => {
+    const { id, name, size, phone, price } = req.query;
+    const UPDATE_CAKE = 'UPDATE cake SET id = \'' + id
+        + '\', name = \''+ name
+        + '\', size = \'' + size
+        + '\', phone = \'' + phone
+        + '\', price = ' + price
+        + ' WHERE id = \'' + id + '\';';
+    connection.query(UPDATE_CAKE, (error, results) => {
+        if (!error)  console.log("Updated successfully")
+    })
+});
+
 app.get('/dress/add', (req, res) => {
     const {id, name, style, price, phone} = req.query;
     const INSERT_DRESS = 'INSERT INTO dress VALUES (\'' + id + '\',\''+ name + '\', \'' + style + '\', ' + price + ',\'' + phone + '\'' + ');';
@@ -128,6 +151,29 @@ app.get('/dress/delete', (req, res) => {
         else {
             res.send("Incorrect ID. Try again!");
         }
+    })
+});
+
+app.get('/dress/find', (req, res) => {
+    const { id } = req.query;
+    const FIND_DRESS = 'SELECT * FROM dress WHERE id = \'' + id + '\';'
+    connection.query(FIND_DRESS, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/dress/update', (req, res) => {
+    const { id, name, style, phone, price } = req.query;
+    const UPDATE_DRESS = 'UPDATE dress SET id = \'' + id
+        + '\', name = \''+ name
+        + '\', style = \'' + style
+        + '\', phone = \'' + phone
+        + '\', price = ' + price
+        + ' WHERE id = \'' + id + '\';';
+    connection.query(UPDATE_DRESS, (error, results) => {
+        if (!error)  console.log("Updated successfully")
     })
 });
 

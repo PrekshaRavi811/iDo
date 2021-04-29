@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
-class FoodUpdate extends Component {
+class DressUpdate extends Component {
     constructor(props) {
         super(props);
         this.state = {
             id: '',
             name: '',
-            cuisine: '',
-            phone: 0,
+            style: '',
             price: 0,
+            phone: 0,
             message: '',
             success: false,
-            food: []
+            dress: []
         };
         this.onClickUpdate = this.onClickUpdate.bind(this);
         this.render = this.render.bind(this);
@@ -36,9 +36,9 @@ class FoodUpdate extends Component {
         });
     };
 
-    handleCuisineOnChange(e) {
+    handleStyleOnChange(e) {
         this.setState({
-            cuisine: e.target.value,
+            style: e.target.value,
         })
     };
 
@@ -55,13 +55,13 @@ class FoodUpdate extends Component {
     };
 
     setSuccess = _ => {
-        if (this.state.food.length > 0) {
+        if (this.state.dress.length > 0) {
             this.state.success = true;
-            this.state.id = this.state.food[0].id;
-            this.state.name = this.state.food[0].name;
-            this.state.cuisine = this.state.food[0].cuisine;
-            this.state.phone = this.state.food[0].phone;
-            this.state.price = this.state.food[0].price;
+            this.state.id = this.state.dress[0].id;
+            this.state.name = this.state.dress[0].name;
+            this.state.style = this.state.dress[0].style;
+            this.state.phone = this.state.dress[0].phone;
+            this.state.price = this.state.dress[0].price;
         }
         else {
             alert("No such ID exists!")
@@ -69,18 +69,16 @@ class FoodUpdate extends Component {
     };
 
     findCompany = _ => {
-
-        fetch('http://localhost:4000/food/find?id=' + this.state.id)
+        fetch('http://localhost:4000/dress/find?id=' + this.state.id)
             .then(response => response.json())
-            .then(food => (this.state.food = food.data));
-
+            .then(dress => (this.state.dress = dress.data));
         this.setSuccess();
     };
 
     updateDatabase = _ => {
-        fetch('http://localhost:4000/food/update?id=' + this.state.id
+        fetch('http://localhost:4000/dress/update?id=' + this.state.id
             + '&name=' + this.state.name
-            + '&cuisine=' + this.state.cuisine
+            + '&style=' + this.state.style
             + '&phone=' + this.state.phone
             + '&price=' + this.state.price).then(r => r.text());
 
@@ -88,21 +86,20 @@ class FoodUpdate extends Component {
             success: false,
             id: '',
             name: '',
-            cuisine: '',
+            style: '',
             phone: 0,
             price: 0,
         });
 
-        this.state.food = [];
-        //alert(this.state.food.length);
+        this.state.dress = [];
+        //alert(this.state.dress.length);
 
     };
 
-
     render() {
-        fetch('http://localhost:4000/food/find?id=' + this.state.id)
+        fetch('http://localhost:4000/dress/find?id=' + this.state.id)
             .then(response => response.json())
-            .then(food => (this.setState({food: food.data})));
+            .then(dress => (this.setState({dress: dress.data})));
 
         return (
             <div>
@@ -113,16 +110,16 @@ class FoodUpdate extends Component {
                 {!this.state.success && <p>{this.state.message} </p>}
 
                 {this.state.success && <p> Name </p>}
-                {this.state.success && this.state.food && <input type="text" id="name" value={this.state.name} onChange={ (e) => this.handleNameOnChange(e) } />}
-                {this.state.success && <p>Cuisine</p>}
-                {this.state.success && this.state.food && <input type="text" id="cuisine" value={this.state.cuisine} onChange={ (e) => this.handleCuisineOnChange(e) }/>}
+                {this.state.success && this.state.dress && <input type="text" id="name" value={this.state.name} onChange={ (e) => this.handleNameOnChange(e) } />}
+                {this.state.success && <p>Style</p>}
+                {this.state.success && this.state.dress && <input type="text" id="style" value={this.state.style} onChange={ (e) => this.handleStyleOnChange(e) }/>}
                 {this.state.success && <p>Phone Number</p>}
-                {this.state.success && this.state.food && <input type="number" id="phone" value={this.state.phone} onChange={ (e) => this.handlePhoneOnChange(e) }/>}
+                {this.state.success && this.state.dress && <input type="number" id="phone" value={this.state.phone} onChange={ (e) => this.handlePhoneOnChange(e) }/>}
                 {this.state.success && <p>Price Per Guest</p>}
-                {this.state.success && this.state.food && <input type="number" id="price" value={this.state.price} onChange={ (e) => this.handlePriceOnChange(e) }/>}
+                {this.state.success && this.state.dress && <input type="number" id="price" value={this.state.price} onChange={ (e) => this.handlePriceOnChange(e) }/>}
 
                 {this.state.success && <p className="string"> Hi {this.state.name}!
-                    You provide {this.state.cuisine} food and your contact number is {this.state.phone}.
+                    You provide {this.state.style} dresses and your contact number is {this.state.phone}.
                     Your average price per guest is ${this.state.price}.
                     Is your information correct? </p>}
 
@@ -134,5 +131,5 @@ class FoodUpdate extends Component {
 
 }
 
-export default FoodUpdate;
+export default DressUpdate;
 
