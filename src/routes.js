@@ -177,6 +177,54 @@ app.get('/dress/update', (req, res) => {
     })
 });
 
+app.get('/entertainment/add', (req, res) => {
+    const {id, name, price, phone, type} = req.query;
+    const INSERT_ENTERTAINMENT = 'INSERT INTO entertainment VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + type + ');';
+    connection.query(INSERT_ENTERTAINMENT, (error, results) => {
+        if (error) console.log(INSERT_ENTERTAINMENT + "\n" + "Adding Error");
+    });
+
+});app.get('/entertainment/delete', (req, res) => {
+    const { id } = req.query;
+    const FIND_ENTERTAINMENT = 'SELECT * FROM entertainment WHERE id = \'' + id + '\'';
+    const DELETE_ENTERTAINMENT = 'DELETE FROM entertainment WHERE id = \'' + id + '\'';
+    connection.query(FIND_ENTERTAINMENT, (error, results) => {
+        if (results.length > 0) {
+            connection.query(DELETE_ENTERTAINMENT, (error) => {
+                res.send("Successfully deleted your information.");
+            });
+        }
+        else {
+            res.send("Incorrect ID. Try again!");
+        }
+    })
+});
+
+app.get('/entertainment/find', (req, res) => {
+    const { id } = req.query;
+    const FIND_ENTERTAINMENT = 'SELECT * FROM entertainment WHERE id = \'' + id + '\';'
+    connection.query(FIND_ENTERTAINMENT, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/entertainment/update', (req, res) => {
+    const { id, name, type, phone, price } = req.query;
+    const UPDATE_ENTERTAINMENT = 'UPDATE entertainment SET id = \'' + id
+        + '\', name = \''+ name
+        + '\', type = \'' + type
+        + '\', phone = \'' + phone
+        + '\', price = ' + price
+        + ' WHERE id = \'' + id + '\';';
+    connection.query(UPDATE_ENTERTAINMENT, (error, results) => {
+        if (!error)  console.log("Updated successfully")
+    })
+});
+
+
+
 app.listen(4000, () => {
     console.log('http://localhost:4000/food');
 });
