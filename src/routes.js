@@ -223,7 +223,61 @@ app.get('/entertainment/update', (req, res) => {
     })
 });
 
+app.get('/venue/add', (req, res) => {
+    const {id, name, capacity, landscape, price, phone, zipcode} = req.query;
+    const INSERT_VENUE = 'INSERT INTO venue VALUES (\'' + id
+        + '\',\''+ name
+        + '\',' + capacity
+        + ',\''+ landscape
+        + '\', ' + price
+        + ',\'' + phone
+        + '\',' + zipcode + ');';
+    connection.query(INSERT_VENUE, (error, results) => {
+        if (error) console.log(INSERT_VENUE + "\n" + "Adding Error");
+    });
 
+});app.get('/venue/delete', (req, res) => {
+    const { id } = req.query;
+    const FIND_VENUE = 'SELECT * FROM venue WHERE id = \'' + id + '\'';
+    const DELETE_VENUE = 'DELETE FROM venue WHERE id = \'' + id + '\'';
+    connection.query(FIND_VENUE, (error, results) => {
+        if (results.length > 0) {
+            connection.query(DELETE_VENUE, (error) => {
+                res.send("Successfully deleted your information.");
+            });
+        }
+        else {
+            res.send("Incorrect ID. Try again!");
+        }
+    })
+});
+
+app.get('/venue/find', (req, res) => {
+    const { id } = req.query;
+    const FIND_VENUE = 'SELECT * FROM venue WHERE id = \'' + id + '\';'
+    connection.query(FIND_VENUE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/venue/update', (req, res) => {
+    const { id, name, capacity, landscape, price, phone, zipcode } = req.query;
+    const UPDATE_VENUE = 'UPDATE venue SET id = \'' + id
+        + '\', name = \''+ name
+        + '\', capacity = \'' + capacity
+        + '\', landscape = \''+ landscape
+        + '\', price = \'' + price
+        + '\', phone = \'' + phone
+        + '\', zipcode = \'' + zipcode
+        + '\' WHERE id = \'' + id + '\';';
+    connection.query(UPDATE_VENUE, (error, results) => {
+        if (!error)  console.log("Updated successfully")
+        if (error) console.log(UPDATE_VENUE + "\n" + "Adding Error");
+
+    })
+});
 
 app.listen(4000, () => {
     console.log('http://localhost:4000/food');

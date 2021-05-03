@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
-class FoodUpdate extends Component {
+class VenueUpdate extends Component {
     constructor(props) {
         super(props);
         this.state = {
             id: '',
             name: '',
-            cuisine: '',
-            phone: 0,
-            price: 0,
+            landscape: '',
+            capacity: '',
+            phone: '',
+            price: '',
+            zipcode: '',
             message: '',
             success: false,
-            food: []
+            venue: []
         };
         this.onClickUpdate = this.onClickUpdate.bind(this);
         this.render = this.render.bind(this);
@@ -71,10 +73,10 @@ class FoodUpdate extends Component {
             this.state.success = true;
             this.state.id = this.state.venue[0].id;
             this.state.name = this.state.venue[0].name;
-            this.state.capacity = this.state.venue[0].cuisine;
+            this.state.capacity = this.state.venue[0].capacity;
+            this.state.landscape = this.state.venue[0].landscape;
             this.state.phone = this.state.venue[0].phone;
             this.state.price = this.state.venue[0].price;
-            this.state.landscape = this.state.venue[0].landscape;
             this.state.zipcode = this.state.venue[0].zipcode;
         }
         else {
@@ -86,37 +88,40 @@ class FoodUpdate extends Component {
 
         fetch('http://localhost:4000/venue/find?id=' + this.state.id)
             .then(response => response.json())
-            .then(food => (this.state.food = food.data));
+            .then(venue => (this.state.venue = venue.data));
 
         this.setSuccess();
     };
 
     updateDatabase = _ => {
-        fetch('http://localhost:4000/food/update?id=' + this.state.id
+        fetch('http://localhost:4000/venue/update?id=' + this.state.id
             + '&name=' + this.state.name
-            + '&cuisine=' + this.state.cuisine
+            + '&capacity=' + this.state.capacity
+            + '&landscape=' + this.state.landscape
+            + '&price=' + this.state.price
             + '&phone=' + this.state.phone
-            + '&price=' + this.state.price).then(r => r.text());
+            + '&zipcode=' + this.state.zipcode).then(r => r.text());
 
         this.setState({
             success: false,
             id: '',
             name: '',
-            cuisine: '',
-            phone: 0,
-            price: 0,
+            landscape: '',
+            capacity: '',
+            phone: '',
+            price: '',
+            zipcode: ''
         });
 
-        this.state.food = [];
-        //alert(this.state.food.length);
+        this.state.venue = [];
 
     };
 
 
     render() {
-        fetch('http://localhost:4000/food/find?id=' + this.state.id)
+        fetch('http://localhost:4000/venue/find?id=' + this.state.id)
             .then(response => response.json())
-            .then(food => (this.setState({food: food.data})));
+            .then(venue => (this.setState({venue: venue.data})));
 
         return (
             <div>
@@ -126,19 +131,26 @@ class FoodUpdate extends Component {
                 {!this.state.success && <button onClick={this.findCompany}> UPDATE </button>}
                 {!this.state.success && <p>{this.state.message} </p>}
 
-                {this.state.success && <p> Name </p>}
-                {this.state.success && this.state.food && <input type="text" id="name" value={this.state.name} onChange={ (e) => this.handleNameOnChange(e) } />}
-                {this.state.success && <p>Cuisine</p>}
-                {this.state.success && this.state.food && <input type="text" id="cuisine" value={this.state.cuisine} onChange={ (e) => this.handleCuisineOnChange(e) }/>}
+                {this.state.success && <p>Name</p>}
+                {this.state.success && this.state.venue && <input type="text" id="name" value={this.state.name} onChange={ (e) => this.handleNameOnChange(e) } />}
+                {this.state.success && <p>Capacity</p>}
+                {this.state.success && this.state.venue && <input type="text" id="capacity" value={this.state.capacity} onChange={ (e) => this.handleCapacityOnChange(e) }/>}
+                {this.state.success && <p>Landscape</p>}
+                {this.state.success && this.state.venue && <input type="text" id="landscape" value={this.state.landscape} onChange={ (e) => this.handleLandscapeOnChange(e) } />}
                 {this.state.success && <p>Phone Number</p>}
-                {this.state.success && this.state.food && <input type="number" id="phone" value={this.state.phone} onChange={ (e) => this.handlePhoneOnChange(e) }/>}
-                {this.state.success && <p>Price Per Guest</p>}
-                {this.state.success && this.state.food && <input type="number" id="price" value={this.state.price} onChange={ (e) => this.handlePriceOnChange(e) }/>}
+                {this.state.success && this.state.venue && <input type="number" id="phone" value={this.state.phone} onChange={ (e) => this.handlePhoneOnChange(e) }/>}
+                {this.state.success && <p>Price</p>}
+                {this.state.success && this.state.venue && <input type="number" id="price" value={this.state.price} onChange={ (e) => this.handlePriceOnChange(e) }/>}
+                {this.state.success && <p>Zipcode</p>}
+                {this.state.success && this.state.venue && <input type="number" id="zipcode" value={this.state.zipcode} onChange={ (e) => this.handleZipOnChange(e) }/>}
 
-                {this.state.success && <p className="string"> Hi {this.state.name}!
-                    You provide {this.state.cuisine} food and your contact number is {this.state.phone}.
-                    Your average price per guest is ${this.state.price}.
-                    Is your information correct? </p>}
+
+                {this.state.success && <p className="string"> Hi {this.state.name}! You provide {this.state.landscape} landscape with the
+                    capacity of {this.state.capacity}. </p>}
+                {this.state.success && <p>Your contact number is {this.state.phone} and price is
+                    ${this.state.price}. </p>}
+                {this.state.success && <p> Your zipcode is {this.state.zipcode}. </p>}
+                {this.state.success && <p> Is your information correct? </p>}
 
                 {this.state.success && <button onClick={this.updateDatabase}> SUBMIT </button>}
 
@@ -148,5 +160,5 @@ class FoodUpdate extends Component {
 
 }
 
-export default FoodUpdate;
+export default VenueUpdate;
 

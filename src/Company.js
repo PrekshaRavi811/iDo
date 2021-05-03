@@ -2,6 +2,7 @@ import React from 'react';
 import Food from './components/FoodCompany';
 import Cake from './components/CakeCompany';
 import Dress from './components/DressCompany';
+import Venue from './components/VenueCompany';
 import Entertainment from "./components/EntertainmentCompany";
 
 import ShowTable from './showTable';
@@ -19,6 +20,7 @@ class Company extends React.Component {
                 <Route exact path="/cakeCompany" component={Cake} />
                 <Route exact path="/dressCompany" component={Dress} />
                 <Route exact path="/entertainmentCompany" component={Entertainment} />
+                <Route exact path="/venueCompany" component={Venue} />
 
 
             </div>
