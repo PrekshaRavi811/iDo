@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import CakeForm from './CakeForm';
-import CakeDelete from './CakeDelete';
-import CakeUpdate from "./CakeUpdate";
+import VenueForm from './VenueForm';
+import VenueDelete from './VenueDelete';
+import VenueUpdate from "./VenueUpdate";
 
-class cakeCompany extends Component{
+class VenueCompany extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +17,7 @@ class cakeCompany extends Component{
     }
 
     onClickAdd () {
-        this.setState({ addButton: true });
+        this.setState({addButton: true});
     }
 
     onClickUpdate () {
@@ -38,9 +38,9 @@ class cakeCompany extends Component{
         const val = !addButton && !updateButton && !deleteButton;
         return (
             <div>
-                { addButton && <CakeForm /> }
-                { updateButton && <CakeUpdate />}
-                { deleteButton && <CakeDelete />}
+                { addButton && <VenueForm /> }
+                { updateButton && <VenueUpdate />}
+                { deleteButton && <VenueDelete />}
                 { !addButton && !updateButton && !deleteButton &&
                 <p> <button onClick={this.onClickAdd}> I want to add my company </button>
                     <button onClick={this.onClickUpdate}> I want to update my details </button>
@@ -50,5 +50,5 @@ class cakeCompany extends Component{
     }
 }
 
-export default cakeCompany;
+export default VenueCompany;
 
