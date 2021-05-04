@@ -83,6 +83,36 @@ app.get('/food/update', (req, res) => {
     })
 });
 
+app.get('/food/getName', (req, res) => {
+    const { name } = req.query;
+    const FIND_NAME = 'SELECT * FROM food WHERE name = ' + name;
+    connection.query(FIND_NAME, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/food/getCuisine', (req, res) => {
+    const { cuisine } = req.query;
+    const FIND_CUISINE = 'SELECT * FROM food WHERE cuisine = ' + cuisine;
+    connection.query(FIND_CUISINE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/food/sortPrice', (req, res) => {
+    const { name } = req.query;
+    const SORT_QUERY = 'SELECT * FROM food order by price';
+    connection.query(SORT_QUERY, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
 app.get('/cake/add', (req, res) => {
     const {id, name, price, phone, size} = req.query;
     const INSERT_FOOD = 'INSERT INTO cake VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + size + ');';
@@ -107,6 +137,29 @@ app.get('/cake/delete', (req, res) => {
     })
 });
 
+app.get('/cake/find', (req, res) => {
+    const { id } = req.query;
+    const FIND_CAKE = 'SELECT * FROM cake WHERE id = \'' + id + '\';'
+    connection.query(FIND_CAKE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/cake/update', (req, res) => {
+    const { id, name, size, phone, price } = req.query;
+    const UPDATE_CAKE = 'UPDATE cake SET id = \'' + id
+        + '\', name = \''+ name
+        + '\', size = \'' + size
+        + '\', phone = \'' + phone
+        + '\', price = ' + price
+        + ' WHERE id = \'' + id + '\';';
+    connection.query(UPDATE_CAKE, (error, results) => {
+        if (!error)  console.log("Updated successfully")
+    })
+});
+
 app.get('/dress/add', (req, res) => {
     const {id, name, style, price, phone} = req.query;
     const INSERT_DRESS = 'INSERT INTO dress VALUES (\'' + id + '\',\''+ name + '\', \'' + style + '\', ' + price + ',\'' + phone + '\'' + ');';
@@ -128,6 +181,131 @@ app.get('/dress/delete', (req, res) => {
         else {
             res.send("Incorrect ID. Try again!");
         }
+    })
+});
+
+app.get('/dress/find', (req, res) => {
+    const { id } = req.query;
+    const FIND_DRESS = 'SELECT * FROM dress WHERE id = \'' + id + '\';'
+    connection.query(FIND_DRESS, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/dress/update', (req, res) => {
+    const { id, name, style, phone, price } = req.query;
+    const UPDATE_DRESS = 'UPDATE dress SET id = \'' + id
+        + '\', name = \''+ name
+        + '\', style = \'' + style
+        + '\', phone = \'' + phone
+        + '\', price = ' + price
+        + ' WHERE id = \'' + id + '\';';
+    connection.query(UPDATE_DRESS, (error, results) => {
+        if (!error)  console.log("Updated successfully")
+    })
+});
+
+app.get('/entertainment/add', (req, res) => {
+    const {id, name, price, phone, type} = req.query;
+    const INSERT_ENTERTAINMENT = 'INSERT INTO entertainment VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + type + ');';
+    connection.query(INSERT_ENTERTAINMENT, (error, results) => {
+        if (error) console.log(INSERT_ENTERTAINMENT + "\n" + "Adding Error");
+    });
+
+});app.get('/entertainment/delete', (req, res) => {
+    const { id } = req.query;
+    const FIND_ENTERTAINMENT = 'SELECT * FROM entertainment WHERE id = \'' + id + '\'';
+    const DELETE_ENTERTAINMENT = 'DELETE FROM entertainment WHERE id = \'' + id + '\'';
+    connection.query(FIND_ENTERTAINMENT, (error, results) => {
+        if (results.length > 0) {
+            connection.query(DELETE_ENTERTAINMENT, (error) => {
+                res.send("Successfully deleted your information.");
+            });
+        }
+        else {
+            res.send("Incorrect ID. Try again!");
+        }
+    })
+});
+
+app.get('/entertainment/find', (req, res) => {
+    const { id } = req.query;
+    const FIND_ENTERTAINMENT = 'SELECT * FROM entertainment WHERE id = \'' + id + '\';'
+    connection.query(FIND_ENTERTAINMENT, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/entertainment/update', (req, res) => {
+    const { id, name, type, phone, price } = req.query;
+    const UPDATE_ENTERTAINMENT = 'UPDATE entertainment SET id = \'' + id
+        + '\', name = \''+ name
+        + '\', type = \'' + type
+        + '\', phone = \'' + phone
+        + '\', price = ' + price
+        + ' WHERE id = \'' + id + '\';';
+    connection.query(UPDATE_ENTERTAINMENT, (error, results) => {
+        if (!error)  console.log("Updated successfully")
+    })
+});
+
+app.get('/venue/add', (req, res) => {
+    const {id, name, capacity, landscape, price, phone, zipcode} = req.query;
+    const INSERT_VENUE = 'INSERT INTO venue VALUES (\'' + id
+        + '\',\''+ name
+        + '\',' + capacity
+        + ',\''+ landscape
+        + '\', ' + price
+        + ',\'' + phone
+        + '\',' + zipcode + ');';
+    connection.query(INSERT_VENUE, (error, results) => {
+        if (error) console.log(INSERT_VENUE + "\n" + "Adding Error");
+    });
+
+});app.get('/venue/delete', (req, res) => {
+    const { id } = req.query;
+    const FIND_VENUE = 'SELECT * FROM venue WHERE id = \'' + id + '\'';
+    const DELETE_VENUE = 'DELETE FROM venue WHERE id = \'' + id + '\'';
+    connection.query(FIND_VENUE, (error, results) => {
+        if (results.length > 0) {
+            connection.query(DELETE_VENUE, (error) => {
+                res.send("Successfully deleted your information.");
+            });
+        }
+        else {
+            res.send("Incorrect ID. Try again!");
+        }
+    })
+});
+
+app.get('/venue/find', (req, res) => {
+    const { id } = req.query;
+    const FIND_VENUE = 'SELECT * FROM venue WHERE id = \'' + id + '\';'
+    connection.query(FIND_VENUE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/venue/update', (req, res) => {
+    const { id, name, capacity, landscape, price, phone, zipcode } = req.query;
+    const UPDATE_VENUE = 'UPDATE venue SET id = \'' + id
+        + '\', name = \''+ name
+        + '\', capacity = \'' + capacity
+        + '\', landscape = \''+ landscape
+        + '\', price = \'' + price
+        + '\', phone = \'' + phone
+        + '\', zipcode = \'' + zipcode
+        + '\' WHERE id = \'' + id + '\';';
+    connection.query(UPDATE_VENUE, (error, results) => {
+        if (!error)  console.log("Updated successfully")
+        if (error) console.log(UPDATE_VENUE + "\n" + "Adding Error");
+
     })
 });
 
