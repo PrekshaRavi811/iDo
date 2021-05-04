@@ -36,9 +36,9 @@ class FoodUpdate extends Component {
         });
     };
 
-    handleLandscapeOnChange(e) {
+    handleCuisineOnChange(e) {
         this.setState({
-            landscape: e.target.value,
+            cuisine: e.target.value,
         })
     };
 
@@ -54,28 +54,14 @@ class FoodUpdate extends Component {
         })
     };
 
-    handleZipOnChange(e) {
-        this.setState({
-            zipcode: e.target.value,
-        })
-    };
-
-    handleCapacityOnChange(e) {
-        this.setState({
-            capacity: e.target.value,
-        })
-    };
-
     setSuccess = _ => {
-        if (this.state.venue.length > 0) {
+        if (this.state.food.length > 0) {
             this.state.success = true;
-            this.state.id = this.state.venue[0].id;
-            this.state.name = this.state.venue[0].name;
-            this.state.capacity = this.state.venue[0].cuisine;
-            this.state.phone = this.state.venue[0].phone;
-            this.state.price = this.state.venue[0].price;
-            this.state.landscape = this.state.venue[0].landscape;
-            this.state.zipcode = this.state.venue[0].zipcode;
+            this.state.id = this.state.food[0].id;
+            this.state.name = this.state.food[0].name;
+            this.state.cuisine = this.state.food[0].cuisine;
+            this.state.phone = this.state.food[0].phone;
+            this.state.price = this.state.food[0].price;
         }
         else {
             alert("No such ID exists!")
@@ -84,7 +70,7 @@ class FoodUpdate extends Component {
 
     findCompany = _ => {
 
-        fetch('http://localhost:4000/venue/find?id=' + this.state.id)
+        fetch('http://localhost:4000/food/find?id=' + this.state.id)
             .then(response => response.json())
             .then(food => (this.state.food = food.data));
 
@@ -106,10 +92,7 @@ class FoodUpdate extends Component {
             phone: 0,
             price: 0,
         });
-
         this.state.food = [];
-        //alert(this.state.food.length);
-
     };
 
 

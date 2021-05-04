@@ -83,6 +83,36 @@ app.get('/food/update', (req, res) => {
     })
 });
 
+app.get('/food/getName', (req, res) => {
+    const { name } = req.query;
+    const FIND_NAME = 'SELECT * FROM food WHERE name = ' + name;
+    connection.query(FIND_NAME, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/food/getCuisine', (req, res) => {
+    const { cuisine } = req.query;
+    const FIND_CUISINE = 'SELECT * FROM food WHERE cuisine = ' + cuisine;
+    connection.query(FIND_CUISINE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/food/sortPrice', (req, res) => {
+    const { name } = req.query;
+    const SORT_QUERY = 'SELECT * FROM food order by price';
+    connection.query(SORT_QUERY, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
 app.get('/cake/add', (req, res) => {
     const {id, name, price, phone, size} = req.query;
     const INSERT_FOOD = 'INSERT INTO cake VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + size + ');';
