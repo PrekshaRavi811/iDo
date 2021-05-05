@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Company from "./Company";
+import Customer from "./Customer";
 
 class App extends React.Component {
 
@@ -31,6 +32,7 @@ class App extends React.Component {
                 { !company && !customer && <p> <button onClick={this.isCustomer}> I want to plan a wedding </button> </p> }
 
                 { company && <Company /> }
+                { customer && <Customer/> }
             </div>
         );
     };
