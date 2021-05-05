@@ -9,10 +9,10 @@ function NavBarCustomer () {
         <div>
             <p><Link to="/"> HOME </Link>
                 <Link to="/foodDisplay"> FOOD </Link>
-                {/*<Link to="/dressCustomer"> DRESS </Link>*/}
-                {/*<Link to="/cakeCustomer"> CAKE </Link>*/}
-                {/*<Link to="/venueCustomer"> VENUE </Link>*/}
-                {/*<Link to="/entertainmentCustomer"> ENTERTAINMENT </Link>*/}
+                <Link to="/cakeDisplay"> CAKE </Link>
+                {/*<Link to="/dressDisplay"> DRESS </Link>*/}
+                {/*<Link to="/venueDisplay"> VENUE </Link>*/}
+                {/*<Link to="/entertainmentDisplay"> ENTERTAINMENT </Link>*/}
             </p>
         </div>
 

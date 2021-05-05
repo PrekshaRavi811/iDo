@@ -31,7 +31,7 @@ class Customer extends React.Component {
                 <NavBarCustomer />
                 <Route exact path="/" component={homeCustomer} />
                 <Route exact path="/foodDisplay" component={Food} />
-                {/*<Route exact path="/cakeCompany" component={Cake} />*/}
+                <Route exact path="/cakeDisplay" component={Cake} />
                 {/*<Route exact path="/dressCompany" component={Dress} />*/}
                 {/*<Route exact path="/entertainmentCompany" component={Entertainment} />*/}
                 {/*<Route exact path="/venueCompany" component={Venue} />*/}
