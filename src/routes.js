@@ -8,6 +8,10 @@ const SELECT_ALL_CAKE = "select * from cake;"
 const SELECT_ALL_ENTERTAINMENT = "select * from entertainment;"
 const SELECT_ALL_DRESS = "select * from dress;"
 const SELECT_ALL_VENUE = "select * from venue;"
+const ISOLATION_LEVEL_RC = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED;";
+const ISOLATION_LEVEL_RU = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;";
+const TRANSACTION_START = "START TRANSACTION;";
+const TRANSACTION_COMMIT = "COMMIT;";
 
 const connection = mysql.createConnection({
     host     : '35.188.32.194',
@@ -42,9 +46,19 @@ app.get('/food', (req, res) => {
 
 app.get('/food/add', (req, res) => {
     const {id, name, cuisine, phone, price} = req.query;
-    const INSERT_FOOD = 'INSERT INTO food VALUES (\'' + id + '\',\''+ name + '\', \'' + cuisine + '\',\'' + phone + '\',' + price + ');';
-    connection.query(INSERT_FOOD, (error, results) => {
-       if (error) console.log("Adding Error");
+    const INSERT_FOOD = 'INSERT INTO food VALUES (\'' + id + '\',\''+ name + '\', \'' + cuisine
+                        + '\',\'' + phone + '\',' + price + ');';
+    connection.query(ISOLATION_LEVEL_RC, (error, results) => {
+       if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+       connection.query(TRANSACTION_START, (error, results) => {
+           if (error) console.log("START ERROR\n" + TRANSACTION_START);
+           connection.query(INSERT_FOOD, (error, results) => {
+                if (error) console.log("Adding Error\n" + INSERT_FOOD);
+                connection.query(TRANSACTION_COMMIT, (error, results) => {
+                    if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                });
+           });
+        });
     });
 });
 
@@ -54,8 +68,19 @@ app.get('/food/delete', (req, res) => {
     const DELETE_FOOD = 'DELETE FROM food WHERE id = \'' + id + '\'';
     connection.query(FIND_FOOD, (error, results) => {
         if (results.length > 0) {
-            connection.query(DELETE_FOOD, (error) => {
-                res.send("Successfully deleted your information.");
+            connection.query(ISOLATION_LEVEL_RU, (error, results) => {
+                if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+                connection.query(TRANSACTION_START, (error, results) => {
+                    if (error) console.log("START ERROR\n" + TRANSACTION_START);
+                    connection.query(DELETE_FOOD, (error, results) => {
+                        if (error) console.log("Adding Error\n" + DELETE_FOOD);
+                        connection.query(TRANSACTION_COMMIT, (error, results) => {
+                            if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                            if (!error) res.send("Successfully deleted your information.");
+
+                        });
+                    });
+                });
             });
         }
         else {
@@ -82,9 +107,18 @@ app.get('/food/update', (req, res) => {
         + '\', phone = \'' + phone
         + '\', price = ' + price
         + ' WHERE id = \'' + id + '\';';
-    connection.query(UPDATE_FOOD, (error, results) => {
-       if (!error)  console.log("Updated successfully")
-    })
+    connection.query(ISOLATION_LEVEL_RC, (error, results) => {
+        if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+        connection.query(TRANSACTION_START, (error, results) => {
+            if (error) console.log("START ERROR\n" + TRANSACTION_START);
+            connection.query(UPDATE_FOOD, (error, results) => {
+                if (error) console.log("Adding Error\n" + UPDATE_FOOD);
+                connection.query(TRANSACTION_COMMIT, (error, results) => {
+                    if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                });
+            });
+        });
+    });
 });
 
 app.get('/food/getName', (req, res) => {
@@ -128,20 +162,40 @@ app.get('/cake', (req, res) => {
 
 app.get('/cake/add', (req, res) => {
     const {id, name, price, phone, size} = req.query;
-    const INSERT_FOOD = 'INSERT INTO cake VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + size + ');';
-    connection.query(INSERT_FOOD, (error, results) => {
-        if (error) console.log(INSERT_FOOD + "\n" + "Adding Error");
+    const INSERT_CAKE = 'INSERT INTO cake VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + size + ');';
+    connection.query(ISOLATION_LEVEL_RC, (error, results) => {
+        if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+        connection.query(TRANSACTION_START, (error, results) => {
+            if (error) console.log("START ERROR\n" + TRANSACTION_START);
+            connection.query(INSERT_CAKE, (error, results) => {
+                if (error) console.log("Adding Error\n" + INSERT_CAKE);
+                connection.query(TRANSACTION_COMMIT, (error, results) => {
+                    if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                });
+            });
+        });
     });
 });
 
 app.get('/cake/delete', (req, res) => {
     const { id } = req.query;
-    const FIND_FOOD = 'SELECT * FROM cake WHERE id = \'' + id + '\'';
-    const DELETE_FOOD = 'DELETE FROM cake WHERE id = \'' + id + '\'';
-    connection.query(FIND_FOOD, (error, results) => {
+    const FIND_CAKE = 'SELECT * FROM cake WHERE id = \'' + id + '\'';
+    const DELETE_CAKE = 'DELETE FROM cake WHERE id = \'' + id + '\'';
+    connection.query(FIND_CAKE, (error, results) => {
         if (results.length > 0) {
-            connection.query(DELETE_FOOD, (error) => {
-                res.send("Successfully deleted your information.");
+            connection.query(ISOLATION_LEVEL_RU, (error, results) => {
+                if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+                connection.query(TRANSACTION_START, (error, results) => {
+                    if (error) console.log("START ERROR\n" + TRANSACTION_START);
+                    connection.query(DELETE_CAKE, (error, results) => {
+                        if (error) console.log("Adding Error\n" + DELETE_CAKE);
+                        connection.query(TRANSACTION_COMMIT, (error, results) => {
+                            if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                            if (!error) res.send("Successfully deleted your information.");
+
+                        });
+                    });
+                });
             });
         }
         else {
@@ -168,9 +222,18 @@ app.get('/cake/update', (req, res) => {
         + '\', phone = \'' + phone
         + '\', price = ' + price
         + ' WHERE id = \'' + id + '\';';
-    connection.query(UPDATE_CAKE, (error, results) => {
-        if (!error)  console.log("Updated successfully")
-    })
+    connection.query(ISOLATION_LEVEL_RC, (error, results) => {
+        if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+        connection.query(TRANSACTION_START, (error, results) => {
+            if (error) console.log("START ERROR\n" + TRANSACTION_START);
+            connection.query(UPDATE_CAKE, (error, results) => {
+                if (error) console.log("Adding Error\n" + UPDATE_CAKE);
+                connection.query(TRANSACTION_COMMIT, (error, results) => {
+                    if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                });
+            });
+        });
+    });
 });
 
 app.get('/cake/getName', (req, res) => {
@@ -215,8 +278,17 @@ app.get('/dress', (req, res) => {
 app.get('/dress/add', (req, res) => {
     const {id, name, style, price, phone} = req.query;
     const INSERT_DRESS = 'INSERT INTO dress VALUES (\'' + id + '\',\''+ name + '\', \'' + style + '\', ' + price + ',\'' + phone + '\'' + ');';
-    connection.query(INSERT_DRESS, (error, results) => {
-        if (error) console.log(INSERT_DRESS + "\n" + "Adding Error");
+    connection.query(ISOLATION_LEVEL_RC, (error, results) => {
+        if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+        connection.query(TRANSACTION_START, (error, results) => {
+            if (error) console.log("START ERROR\n" + TRANSACTION_START);
+            connection.query(INSERT_DRESS, (error, results) => {
+                if (error) console.log("Adding Error\n" + INSERT_DRESS);
+                connection.query(TRANSACTION_COMMIT, (error, results) => {
+                    if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                });
+            });
+        });
     });
 });
 
@@ -226,8 +298,19 @@ app.get('/dress/delete', (req, res) => {
     const DELETE_DRESS = 'DELETE FROM dress WHERE id = \'' + id + '\'';
     connection.query(FIND_DRESS, (error, results) => {
         if (results.length > 0) {
-            connection.query(DELETE_DRESS, (error) => {
-                res.send("Successfully deleted your information.");
+            connection.query(ISOLATION_LEVEL_RU, (error, results) => {
+                if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+                connection.query(TRANSACTION_START, (error, results) => {
+                    if (error) console.log("START ERROR\n" + TRANSACTION_START);
+                    connection.query(DELETE_DRESS, (error, results) => {
+                        if (error) console.log("Adding Error\n" + DELETE_DRESS);
+                        connection.query(TRANSACTION_COMMIT, (error, results) => {
+                            if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                            if (!error) res.send("Successfully deleted your information.");
+
+                        });
+                    });
+                });
             });
         }
         else {
@@ -254,9 +337,18 @@ app.get('/dress/update', (req, res) => {
         + '\', phone = \'' + phone
         + '\', price = ' + price
         + ' WHERE id = \'' + id + '\';';
-    connection.query(UPDATE_DRESS, (error, results) => {
-        if (!error)  console.log("Updated successfully")
-    })
+    connection.query(ISOLATION_LEVEL_RC, (error, results) => {
+        if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+        connection.query(TRANSACTION_START, (error, results) => {
+            if (error) console.log("START ERROR\n" + TRANSACTION_START);
+            connection.query(UPDATE_DRESS, (error, results) => {
+                if (error) console.log("Adding Error\n" + UPDATE_DRESS);
+                connection.query(TRANSACTION_COMMIT, (error, results) => {
+                    if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                });
+            });
+        });
+    });
 });
 
 app.get('/dress/getName', (req, res) => {
@@ -301,8 +393,17 @@ app.get('/entertainment', (req, res) => {
 app.get('/entertainment/add', (req, res) => {
     const {id, name, price, phone, type} = req.query;
     const INSERT_ENTERTAINMENT = 'INSERT INTO entertainment VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + type + ');';
-    connection.query(INSERT_ENTERTAINMENT, (error, results) => {
-        if (error) console.log(INSERT_ENTERTAINMENT + "\n" + "Adding Error");
+    connection.query(ISOLATION_LEVEL_RC, (error, results) => {
+        if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+        connection.query(TRANSACTION_START, (error, results) => {
+            if (error) console.log("START ERROR\n" + TRANSACTION_START);
+            connection.query(INSERT_ENTERTAINMENT, (error, results) => {
+                if (error) console.log("Adding Error\n" + INSERT_ENTERTAINMENT);
+                connection.query(TRANSACTION_COMMIT, (error, results) => {
+                    if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                });
+            });
+        });
     });
 
 });app.get('/entertainment/delete', (req, res) => {
@@ -311,8 +412,19 @@ app.get('/entertainment/add', (req, res) => {
     const DELETE_ENTERTAINMENT = 'DELETE FROM entertainment WHERE id = \'' + id + '\'';
     connection.query(FIND_ENTERTAINMENT, (error, results) => {
         if (results.length > 0) {
-            connection.query(DELETE_ENTERTAINMENT, (error) => {
-                res.send("Successfully deleted your information.");
+            connection.query(ISOLATION_LEVEL_RU, (error, results) => {
+                if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+                connection.query(TRANSACTION_START, (error, results) => {
+                    if (error) console.log("START ERROR\n" + TRANSACTION_START);
+                    connection.query(DELETE_ENTERTAINMENT, (error, results) => {
+                        if (error) console.log("Adding Error\n" + DELETE_ENTERTAINMENT);
+                        connection.query(TRANSACTION_COMMIT, (error, results) => {
+                            if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                            if (!error) res.send("Successfully deleted your information.");
+
+                        });
+                    });
+                });
             });
         }
         else {
@@ -392,8 +504,17 @@ app.get('/venue/add', (req, res) => {
         + '\', ' + price
         + ',\'' + phone
         + '\',' + zipcode + ');';
-    connection.query(INSERT_VENUE, (error, results) => {
-        if (error) console.log(INSERT_VENUE + "\n" + "Adding Error");
+    connection.query(ISOLATION_LEVEL_RC, (error, results) => {
+        if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+        connection.query(TRANSACTION_START, (error, results) => {
+            if (error) console.log("START ERROR\n" + TRANSACTION_START);
+            connection.query(INSERT_VENUE, (error, results) => {
+                if (error) console.log("Adding Error\n" + INSERT_VENUE);
+                connection.query(TRANSACTION_COMMIT, (error, results) => {
+                    if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                });
+            });
+        });
     });
 
 });app.get('/venue/delete', (req, res) => {
@@ -402,8 +523,18 @@ app.get('/venue/add', (req, res) => {
     const DELETE_VENUE = 'DELETE FROM venue WHERE id = \'' + id + '\'';
     connection.query(FIND_VENUE, (error, results) => {
         if (results.length > 0) {
-            connection.query(DELETE_VENUE, (error) => {
-                res.send("Successfully deleted your information.");
+            connection.query(ISOLATION_LEVEL_RU, (error, results) => {
+                if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+                connection.query(TRANSACTION_START, (error, results) => {
+                    if (error) console.log("START ERROR\n" + TRANSACTION_START);
+                    connection.query(DELETE_VENUE, (error, results) => {
+                        if (error) console.log("Adding Error\n" + DELETE_VENUE);
+                        connection.query(TRANSACTION_COMMIT, (error, results) => {
+                            if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                            if (!error) res.send("Successfully deleted your information.");
+                        });
+                    });
+                });
             });
         }
         else {
@@ -432,11 +563,18 @@ app.get('/venue/update', (req, res) => {
         + '\', phone = \'' + phone
         + '\', zipcode = \'' + zipcode
         + '\' WHERE id = \'' + id + '\';';
-    connection.query(UPDATE_VENUE, (error, results) => {
-        if (!error)  console.log("Updated successfully")
-        if (error) console.log(UPDATE_VENUE + "\n" + "Adding Error");
-
-    })
+    connection.query(ISOLATION_LEVEL_RC, (error, results) => {
+        if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+        connection.query(TRANSACTION_START, (error, results) => {
+            if (error) console.log("START ERROR\n" + TRANSACTION_START);
+            connection.query(UPDATE_VENUE, (error, results) => {
+                if (error) console.log("Adding Error\n" + UPDATE_VENUE);
+                connection.query(TRANSACTION_COMMIT, (error, results) => {
+                    if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                });
+            });
+        });
+    });
 });
 
 app.get('/venue/getName', (req, res) => {
