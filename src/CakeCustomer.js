@@ -6,7 +6,7 @@ class showTable extends React.Component {
         this.state = {
             name: '',
             size: '',
-            food: []
+            food: [] //is this needed
         };
         this.getFood();
     };
@@ -25,27 +25,27 @@ class showTable extends React.Component {
 
     getName = _ =>  {
         this.state.food = [];
-        fetch('http://localhost:4000/food/getName?name=\'' + this.state.name + '\';')
+        fetch('http://localhost:4000/cake/getName?name=\'' + this.state.name + '\';')
             .then(response => response.json())
             .then(food => (this.setState({food: food.data})));
     }
 
     getSize = _ =>  {
         this.state.food = [];
-        fetch('http://localhost:4000/food/getSize?size=\'' + this.state.size + '\';')
+        fetch('http://localhost:4000/cake/getSize?size=\'' + this.state.size + '\';')
             .then(response => response.json())
             .then(food => (this.setState({food: food.data})));
     }
 
     sortByPrice = _ =>  {
         this.state.food = [];
-        fetch('http://localhost:4000/food/sortPrice')
+        fetch('http://localhost:4000/cake/sortPrice')
             .then(response => response.json())
             .then(food => (this.setState({food: food.data})));
     }
 
     getFood = _ => {
-        fetch('http://localhost:4000/food')
+        fetch('http://localhost:4000/cake')
             .then(response => response.json())
             .then(food => (this.setState({food: food.data})));
     }
@@ -59,7 +59,7 @@ class showTable extends React.Component {
                 <button onClick={this.getName}> Search by Name </button>
                 <input type="text" id="id" value={this.state.name} onChange={ (e) => this.handleNameOnChange(e) } /> <br/>
                 <button onClick={this.getSize}> Search by Size </button>
-                <input type="text" id="id" value={this.state.size} onChange={ (e) => this.handleCuisineOnChange(e) } />
+                <input type="text" id="id" value={this.state.size} onChange={ (e) => this.handleSizeOnChange(e) } />
 
                 <table border="1">
                     <thead>
