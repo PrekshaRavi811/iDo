@@ -6,7 +6,7 @@ class showTable extends React.Component {
         this.state = {
             name: '',
             type: '',
-            food: []
+            entertainment: []
         };
         this.getEntertainment();
     };
