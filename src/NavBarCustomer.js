@@ -8,11 +8,11 @@ function NavBarCustomer () {
     return (
         <div>
             <p><Link to="/"> HOME </Link>
-                <Link to="/foodCompany"> FOOD </Link>
-                <Link to="/dressCompany"> DRESS </Link>
-                <Link to="/cakeCompany"> CAKE </Link>
-                <Link to="/venueCompany"> VENUE </Link>
-                <Link to="/entertainmentCompany"> ENTERTAINMENT </Link></p>
+                <Link to="/foodCustomer"> FOOD </Link>
+                <Link to="/dressCustomer"> DRESS </Link>
+                <Link to="/cakeCustomer"> CAKE </Link>
+                <Link to="/venueCustomer"> VENUE </Link>
+                <Link to="/entertainmentCustomer"> ENTERTAINMENT </Link></p>
         </div>
 
     );
