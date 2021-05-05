@@ -14,7 +14,7 @@
 
 import React from 'react';
 import Food from './FoodDisplay';
-// import Cake from './components/CakeCompany';
+import Cake from './CakeDisplay';
 // import Dress from './components/DressCompany';
 // import Venue from './components/VenueCompany';
 // import Entertainment from "./components/EntertainmentCompany";
