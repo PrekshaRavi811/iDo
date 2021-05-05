@@ -6,8 +6,8 @@ const app = express();
 const SELECT_ALL_FOOD = "select * from food;"
 const SELECT_ALL_CAKE = "select * from cake;"
 const SELECT_ALL_ENTERTAINMENT = "select * from entertainment;"
-//const SELECT_ALL_DRESS = "select * from dress;"
-//const SELECT_ALL_VENUE = "select * from venue;"
+const SELECT_ALL_DRESS = "select * from dress;"
+const SELECT_ALL_VENUE = "select * from venue;"
 
 const connection = mysql.createConnection({
     host     : '35.188.32.194',
@@ -203,6 +203,15 @@ app.get('/cake/sortPrice', (req, res) => {
     });
 });
 
+app.get('/dress', (req, res) => {
+    connection.query(SELECT_ALL_DRESS, (error, results, fields) => {
+        if (error) console.log(error);
+        res.json ({
+            data: results
+        });
+    });
+});
+
 app.get('/dress/add', (req, res) => {
     const {id, name, style, price, phone} = req.query;
     const INSERT_DRESS = 'INSERT INTO dress VALUES (\'' + id + '\',\''+ name + '\', \'' + style + '\', ' + price + ',\'' + phone + '\'' + ');';
@@ -248,6 +257,36 @@ app.get('/dress/update', (req, res) => {
     connection.query(UPDATE_DRESS, (error, results) => {
         if (!error)  console.log("Updated successfully")
     })
+});
+
+app.get('/dress/getName', (req, res) => {
+    const { name } = req.query;
+    const FIND_NAME = 'SELECT * FROM dress WHERE name = ' + name;
+    connection.query(FIND_NAME, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/dress/getStyle', (req, res) => {
+    const { style } = req.query;
+    const FIND_STYLE = 'SELECT * FROM dress WHERE style = ' + style;
+    connection.query(FIND_STYLE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/dress/sortPrice', (req, res) => {
+    const { name } = req.query;
+    const SORT_QUERY = 'SELECT * FROM dress order by price';
+    connection.query(SORT_QUERY, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
 });
 
 app.get('/entertainment', (req, res) => {
@@ -335,6 +374,15 @@ app.get('/entertainment/sortPrice', (req, res) => {
     });
 });
 
+app.get('/venue', (req, res) => {
+    connection.query(SELECT_ALL_VENUE, (error, results, fields) => {
+        if (error) console.log(error);
+        res.json ({
+            data: results
+        });
+    });
+});
+
 app.get('/venue/add', (req, res) => {
     const {id, name, capacity, landscape, price, phone, zipcode} = req.query;
     const INSERT_VENUE = 'INSERT INTO venue VALUES (\'' + id
@@ -389,6 +437,56 @@ app.get('/venue/update', (req, res) => {
         if (error) console.log(UPDATE_VENUE + "\n" + "Adding Error");
 
     })
+});
+
+app.get('/venue/getName', (req, res) => {
+    const { name } = req.query;
+    const FIND_NAME = 'SELECT * FROM venue WHERE name = ' + name;
+    connection.query(FIND_NAME, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/venue/getCapacity', (req, res) => {
+    const { capacity } = req.query;
+    const FIND_CAPACITY = 'SELECT * FROM venue WHERE capacity = ' + capacity;
+    connection.query(FIND_CAPACITY, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/venue/getLandscape', (req, res) => {
+    const { landscape } = req.query;
+    const FIND_LANDSCAPE = 'SELECT * FROM venue WHERE landscape = ' + landscape;
+    connection.query(FIND_LANDSCAPE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/venue/getZipcode', (req, res) => {
+    const { zipcode } = req.query;
+    const FIND_ZIPCODE = 'SELECT * FROM venue WHERE zipcode = ' + zipcode;
+    connection.query(FIND_ZIPCODE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/venue/sortPrice', (req, res) => {
+    const { name } = req.query;
+    const SORT_QUERY = 'SELECT * FROM venue order by price';
+    connection.query(SORT_QUERY, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
 });
 
 app.listen(4000, () => {
