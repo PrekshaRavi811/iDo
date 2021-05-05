@@ -10,9 +10,9 @@ function NavBarCustomer () {
             <p><Link to="/"> HOME </Link>
                 <Link to="/foodDisplay"> FOOD </Link>
                 <Link to="/cakeDisplay"> CAKE </Link>
+                <Link to="/entertainmentDisplay"> ENTERTAINMENT </Link>
                 {/*<Link to="/dressDisplay"> DRESS </Link>*/}
                 {/*<Link to="/venueDisplay"> VENUE </Link>*/}
-                {/*<Link to="/entertainmentDisplay"> ENTERTAINMENT </Link>*/}
             </p>
         </div>
 
