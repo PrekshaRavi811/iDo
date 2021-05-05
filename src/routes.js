@@ -392,7 +392,7 @@ app.get('/entertainment', (req, res) => {
 
 app.get('/entertainment/add', (req, res) => {
     const {id, name, price, phone, type} = req.query;
-    const INSERT_ENTERTAINMENT = 'INSERT INTO entertainment VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + type + ');';
+    const INSERT_ENTERTAINMENT = 'INSERT INTO entertainment VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',\'' + type + '\');';
     connection.query(ISOLATION_LEVEL_RC, (error, results) => {
         if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
         connection.query(TRANSACTION_START, (error, results) => {
