@@ -3,7 +3,11 @@ const mysql = require('mysql');
 const cors = require('cors');
 
 const app = express();
-const SELECT_ALL_FOOD = "SELECT * FROM food;";
+const SELECT_ALL_FOOD = "select * from food;"
+const SELECT_ALL_CAKE = "select * from cake;"
+const SELECT_ALL_ENTERTAINMENT = "select * from entertainment;"
+const SELECT_ALL_DRESS = "select * from dress;"
+const SELECT_ALL_VENUE = "select * from venue;"
 const ISOLATION_LEVEL_RC = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED;";
 const ISOLATION_LEVEL_RU = "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;";
 const TRANSACTION_START = "START TRANSACTION;";
@@ -147,6 +151,15 @@ app.get('/food/sortPrice', (req, res) => {
     });
 });
 
+app.get('/cake', (req, res) => {
+    connection.query(SELECT_ALL_CAKE, (error, results, fields) => {
+        if (error) console.log(error);
+        res.json ({
+            data: results
+        });
+    });
+});
+
 app.get('/cake/add', (req, res) => {
     const {id, name, price, phone, size} = req.query;
     const INSERT_CAKE = 'INSERT INTO cake VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + size + ');';
@@ -219,6 +232,45 @@ app.get('/cake/update', (req, res) => {
                     if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
                 });
             });
+        });
+    });
+});
+
+app.get('/cake/getName', (req, res) => {
+    const { name } = req.query;
+    const FIND_NAME = 'SELECT * FROM cake WHERE name = ' + name;
+    connection.query(FIND_NAME, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/cake/getSize', (req, res) => {
+    const { size } = req.query;
+    const FIND_SIZE = 'SELECT * FROM cake WHERE size = ' + size;
+    connection.query(FIND_SIZE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/cake/sortPrice', (req, res) => {
+    const { name } = req.query;
+    const SORT_QUERY = 'SELECT * FROM cake order by price';
+    connection.query(SORT_QUERY, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/dress', (req, res) => {
+    connection.query(SELECT_ALL_DRESS, (error, results, fields) => {
+        if (error) console.log(error);
+        res.json ({
+            data: results
         });
     });
 });
@@ -299,9 +351,48 @@ app.get('/dress/update', (req, res) => {
     });
 });
 
+app.get('/dress/getName', (req, res) => {
+    const { name } = req.query;
+    const FIND_NAME = 'SELECT * FROM dress WHERE name = ' + name;
+    connection.query(FIND_NAME, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/dress/getStyle', (req, res) => {
+    const { style } = req.query;
+    const FIND_STYLE = 'SELECT * FROM dress WHERE style = ' + style;
+    connection.query(FIND_STYLE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/dress/sortPrice', (req, res) => {
+    const { name } = req.query;
+    const SORT_QUERY = 'SELECT * FROM dress order by price';
+    connection.query(SORT_QUERY, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/entertainment', (req, res) => {
+    connection.query(SELECT_ALL_ENTERTAINMENT, (error, results, fields) => {
+        if (error) console.log(error);
+        res.json ({
+            data: results
+        });
+    });
+});
+
 app.get('/entertainment/add', (req, res) => {
     const {id, name, price, phone, type} = req.query;
-    const INSERT_ENTERTAINMENT = 'INSERT INTO entertainment VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + type + ');';
+    const INSERT_ENTERTAINMENT = 'INSERT INTO entertainment VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',\'' + type + '\');';
     connection.query(ISOLATION_LEVEL_RC, (error, results) => {
         if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
         connection.query(TRANSACTION_START, (error, results) => {
@@ -363,6 +454,45 @@ app.get('/entertainment/update', (req, res) => {
     connection.query(UPDATE_ENTERTAINMENT, (error, results) => {
         if (!error)  console.log("Updated successfully")
     })
+});
+
+app.get('/entertainment/getName', (req, res) => {
+    const { name } = req.query;
+    const FIND_NAME = 'SELECT * FROM entertainment WHERE name = ' + name;
+    connection.query(FIND_NAME, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/entertainment/getType', (req, res) => {
+    const { type } = req.query;
+    const FIND_TYPE = 'SELECT * FROM entertainment WHERE type = ' + type;
+    connection.query(FIND_TYPE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/entertainment/sortPrice', (req, res) => {
+    const { name } = req.query;
+    const SORT_QUERY = 'SELECT * FROM entertainment order by price';
+    connection.query(SORT_QUERY, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/venue', (req, res) => {
+    connection.query(SELECT_ALL_VENUE, (error, results, fields) => {
+        if (error) console.log(error);
+        res.json ({
+            data: results
+        });
+    });
 });
 
 app.get('/venue/add', (req, res) => {
@@ -443,6 +573,56 @@ app.get('/venue/update', (req, res) => {
                     if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
                 });
             });
+        });
+    });
+});
+
+app.get('/venue/getName', (req, res) => {
+    const { name } = req.query;
+    const FIND_NAME = 'SELECT * FROM venue WHERE name = ' + name;
+    connection.query(FIND_NAME, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/venue/getCapacity', (req, res) => {
+    const { capacity } = req.query;
+    const FIND_CAPACITY = 'SELECT * FROM venue WHERE capacity = ' + capacity;
+    connection.query(FIND_CAPACITY, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/venue/getLandscape', (req, res) => {
+    const { landscape } = req.query;
+    const FIND_LANDSCAPE = 'SELECT * FROM venue WHERE landscape = ' + landscape;
+    connection.query(FIND_LANDSCAPE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/venue/getZipcode', (req, res) => {
+    const { zipcode } = req.query;
+    const FIND_ZIPCODE = 'SELECT * FROM venue WHERE zipcode = ' + zipcode;
+    connection.query(FIND_ZIPCODE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/venue/sortPrice', (req, res) => {
+    const { name } = req.query;
+    const SORT_QUERY = 'SELECT * FROM venue order by price';
+    connection.query(SORT_QUERY, (error, results) => {
+        res.json ({
+            data: results
         });
     });
 });
