@@ -5,7 +5,7 @@ class showTable extends React.Component {
         super(props);
         this.state = {
             name: '',
-            type: '',
+            style: '',
             dress: []
         };
         this.getDress();
@@ -19,7 +19,7 @@ class showTable extends React.Component {
 
     handleStyleOnChange(e) {
         this.setState({
-            type: e.target.value,
+            style: e.target.value,
         })
     };
 
@@ -55,6 +55,7 @@ class showTable extends React.Component {
             <div>
                 <button onClick={this.getDress}>Refresh</button> <br/> <br />
                 <button onClick={this.sortByPrice}>Sort by Price</button> <br/>
+
                 <button onClick={this.getName}> Search by Name </button>
                 <input type="text" id="id" value={this.state.name} onChange={ (e) => this.handleNameOnChange(e) } /> <br/>
                 <button onClick={this.getStyle}> Search by Style </button>
