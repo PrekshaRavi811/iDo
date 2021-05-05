@@ -3,7 +3,11 @@ const mysql = require('mysql');
 const cors = require('cors');
 
 const app = express();
-const SELECT_ALL_FOOD = "select * from food;";
+const SELECT_ALL_FOOD = "select * from food;"
+const SELECT_ALL_CAKE = "select * from cake;"
+const SELECT_ALL_ENTERTAINMENT = "select * from entertainment;"
+//const SELECT_ALL_DRESS = "select * from dress;"
+//const SELECT_ALL_VENUE = "select * from venue;"
 
 const connection = mysql.createConnection({
     host     : '35.188.32.194',
@@ -113,6 +117,15 @@ app.get('/food/sortPrice', (req, res) => {
     });
 });
 
+app.get('/cake', (req, res) => {
+    connection.query(SELECT_ALL_CAKE, (error, results, fields) => {
+        if (error) console.log(error);
+        res.json ({
+            data: results
+        });
+    });
+});
+
 app.get('/cake/add', (req, res) => {
     const {id, name, price, phone, size} = req.query;
     const INSERT_FOOD = 'INSERT INTO cake VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + size + ');';
@@ -158,6 +171,36 @@ app.get('/cake/update', (req, res) => {
     connection.query(UPDATE_CAKE, (error, results) => {
         if (!error)  console.log("Updated successfully")
     })
+});
+
+app.get('/cake/getName', (req, res) => {
+    const { name } = req.query;
+    const FIND_NAME = 'SELECT * FROM cake WHERE name = ' + name;
+    connection.query(FIND_NAME, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/cake/getSize', (req, res) => {
+    const { size } = req.query;
+    const FIND_SIZE = 'SELECT * FROM cake WHERE size = ' + size;
+    connection.query(FIND_SIZE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/cake/sortPrice', (req, res) => {
+    const { name } = req.query;
+    const SORT_QUERY = 'SELECT * FROM cake order by price';
+    connection.query(SORT_QUERY, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
 });
 
 app.get('/dress/add', (req, res) => {
@@ -207,6 +250,15 @@ app.get('/dress/update', (req, res) => {
     })
 });
 
+app.get('/entertainment', (req, res) => {
+    connection.query(SELECT_ALL_ENTERTAINMENT, (error, results, fields) => {
+        if (error) console.log(error);
+        res.json ({
+            data: results
+        });
+    });
+});
+
 app.get('/entertainment/add', (req, res) => {
     const {id, name, price, phone, type} = req.query;
     const INSERT_ENTERTAINMENT = 'INSERT INTO entertainment VALUES (\'' + id + '\',\''+ name + '\', ' + price + ',\'' + phone + '\',' + type + ');';
@@ -251,6 +303,36 @@ app.get('/entertainment/update', (req, res) => {
     connection.query(UPDATE_ENTERTAINMENT, (error, results) => {
         if (!error)  console.log("Updated successfully")
     })
+});
+
+app.get('/entertainment/getName', (req, res) => {
+    const { name } = req.query;
+    const FIND_NAME = 'SELECT * FROM entertainment WHERE name = ' + name;
+    connection.query(FIND_NAME, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/entertainment/getType', (req, res) => {
+    const { type } = req.query;
+    const FIND_TYPE = 'SELECT * FROM entertainment WHERE type = ' + type;
+    connection.query(FIND_TYPE, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/entertainment/sortPrice', (req, res) => {
+    const { name } = req.query;
+    const SORT_QUERY = 'SELECT * FROM entertainment order by price';
+    connection.query(SORT_QUERY, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
 });
 
 app.get('/venue/add', (req, res) => {
