@@ -1,5 +1,5 @@
 import React from "react"
-import Table from "./cakeCustomer"
+import Table from "./CakeCustomer"
 
 class CakeDisplay extends React.Component {
     render() {
