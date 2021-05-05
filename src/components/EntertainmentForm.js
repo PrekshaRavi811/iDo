@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
-class FoodUpdateForm extends Component{
+class EntertainmentForm extends Component{
     constructor(props) {
         super(props);
         this.state = {
             id: '',
             name: '',
-            cuisine: '',
+            type: '',
             phone: 0,
             price: 0
         };
@@ -24,9 +24,9 @@ class FoodUpdateForm extends Component{
         });
     };
 
-    handleCuisineOnChange(e) {
+    handleTypeOnChange(e) {
         this.setState({
-            cuisine: e.target.value,
+            type: e.target.value,
         })
     };
 
@@ -41,22 +41,22 @@ class FoodUpdateForm extends Component{
             price: e.target.value,
         })
     };
-    getFood = _=> {
-        fetch('http://localhost:4000/food')
+    getEntertainment = _=> {
+        fetch('http://localhost:4000/entertainment')
             .then(response => response.json())
-            .then(food => (this.setState({food: food.data})));
+            .then(entertainment => (this.setState({entertainment: entertainment.data})));
     };
 
-    updateDatabase = _ => {
-        fetch('http://localhost:4000/food/update?id=' + this.state.id + '&name=' + this.state.name + '&cuisine='
-            + this.state.cuisine + '&phone=' + this.state.phone
+    addToDatabase = _ => {
+        fetch('http://localhost:4000/entertainment/add?id=' + this.state.id + '&name=' + this.state.name + '&type='
+            + this.state.type + '&phone=' + this.state.phone
             + '&price=' + this.state.price)
-            .then(this.getFood);
+            .then(this.getEntertainment);
 
         this.setState({
             id: '',
             name: '',
-            cuisine: '',
+            type: '',
             phone: '',
             price: ''
         })
@@ -68,20 +68,20 @@ class FoodUpdateForm extends Component{
                 <input type="text" id="id" value={this.state.id} onChange={ (e) => this.handleIdOnChange(e) } />
                 <p> Name </p>
                 <input type="text" id="name" value={this.state.name} onChange={ (e) => this.handleNameOnChange(e) } />
-                <p>Cuisine</p>
-                <input type="text" id="cuisine" value={this.state.cuisine} onChange={ (e) => this.handleCuisineOnChange(e) }/>
+                <p>Type</p>
+                <input type="text" id="type" value={this.state.type} onChange={ (e) => this.handleTypeOnChange(e) }/>
                 <p>Phone Number</p>
                 <input type="number" id="phone" value={this.state.phone} onChange={ (e) => this.handlePhoneOnChange(e) }/>
                 <p>Price Per Guest</p>
                 <input type="number" id="price" value={this.state.price} onChange={ (e) => this.handlePriceOnChange(e) }/>
 
-                <p className="string"> Hi {this.state.name}! You provide {this.state.cuisine} food and your contact number is {this.state.phone}. Your average price per guest is ${this.state.price}. Is your information correct? </p>
+                <p className="string"> Hi {this.state.name}! You provide {this.state.type} entertainment and your contact number is {this.state.phone}. Your average price per guest is ${this.state.price}. Is your information correct? </p>
 
-                <button onClick={this.updateDatabase}> SUBMIT </button>
+                <button onClick={this.addToDatabase}> SUBMIT </button>
             </div>
         );
     }
 }
 
-export default FoodUpdateForm;
+export default EntertainmentForm;
 
