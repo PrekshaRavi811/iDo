@@ -41,11 +41,6 @@ class foodForm extends Component{
             price: e.target.value,
         })
     };
-    getFood = _=> {
-        fetch('http://localhost:4000/food')
-            .then(response => response.json())
-        .then(food => (this.setState({food: food.data})));
-    };
 
     addToDatabase = _ => {
         fetch('http://localhost:4000/food/add?id=' + this.state.id + '&name=' + this.state.name + '&cuisine='

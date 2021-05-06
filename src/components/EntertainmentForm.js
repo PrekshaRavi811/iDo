@@ -72,7 +72,7 @@ class EntertainmentForm extends Component{
                 <input type="text" id="type" value={this.state.type} onChange={ (e) => this.handleTypeOnChange(e) }/>
                 <p>Phone Number</p>
                 <input type="number" id="phone" value={this.state.phone} onChange={ (e) => this.handlePhoneOnChange(e) }/>
-                <p>Price Per Guest</p>
+                <p>Price</p>
                 <input type="number" id="price" value={this.state.price} onChange={ (e) => this.handlePriceOnChange(e) }/>
 
                 <p className="string"> Hi {this.state.name}! You provide {this.state.type} entertainment and your contact number is {this.state.phone}. Your average price per guest is ${this.state.price}. Is your information correct? </p>

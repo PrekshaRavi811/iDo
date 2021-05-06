@@ -112,7 +112,7 @@ app.get('/food/update', (req, res) => {
         connection.query(TRANSACTION_START, (error, results) => {
             if (error) console.log("START ERROR\n" + TRANSACTION_START);
             connection.query(UPDATE_FOOD, (error, results) => {
-                if (error) console.log("Adding Error\n" + UPDATE_FOOD);
+                if (error) console.log("Updating Error\n" + UPDATE_FOOD);
                 connection.query(TRANSACTION_COMMIT, (error, results) => {
                     if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
                 });
