@@ -631,7 +631,7 @@ app.get('/venue/sortPrice', (req, res) => {
 app.get('/customer/add', (req, res) => {
     const {id, name, email, foodID, dressID, cakeID, venue, entertainment, budget} = req.query;
     const INSERT_CUSTOMER = 'INSERT INTO customer VALUES (\'' + id + '\',\''+ name + '\', \'' + email
-        + '\',\'' + foodID + '\',' + dressID + '\',' + cakeID + '\',' + venue + '\',' + entertainment + '\','
+        + '\',\'' + foodID + '\',\'' + dressID + '\',\'' + cakeID + '\',\'' + venue + '\',\'' + entertainment + '\','
         + budget + ');';
     connection.query(ISOLATION_LEVEL_RC, (error, results) => {
         if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
