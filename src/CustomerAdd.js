@@ -105,15 +105,15 @@ class CustomerAdd extends Component{
                 <input type="text" id="name" value={this.state.name} onChange={ (e) => this.handleNameOnChange(e) } />
                 <p>Email</p>
                 <input type="text" id="email" value={this.state.email} onChange={ (e) => this.handleEmailOnChange(e) }/>
-                <p>Food company of choice</p>
+                <p>ID of Food company of choice</p>
                 <input type="text" id="foodID" value={this.state.foodID} onChange={ (e) => this.handleFoodOnChange(e) }/>
-                <p>Dress company of choice</p>
+                <p>ID of Dress company of choice</p>
                 <input type="text" id="dressID" value={this.state.dressID} onChange={ (e) => this.handleDressOnChange(e) }/>
-                <p>Cake company of choice</p>
+                <p>ID of Cake company of choice</p>
                 <input type="text" id="cakeID" value={this.state.cakeID} onChange={ (e) => this.handleCakeOnChange(e) }/>
-                <p>Venue of choice</p>
+                <p>ID of Venue of choice</p>
                 <input type="text" id="venue" value={this.state.venue} onChange={ (e) => this.handleVenueOnChange(e) }/>
-                <p>Entertainment of choice</p>
+                <p>ID of Entertainment of choice</p>
                 <input type="text" id="entertainment" value={this.state.entertainment} onChange={ (e) => this.handleEntertainmentOnChange(e) }/>
                 <p>Budget</p>
                 <input type="number" id="budget" value={this.state.budget} onChange={ (e) => this.handleBudgetOnChange(e) }/>

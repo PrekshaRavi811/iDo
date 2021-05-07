@@ -13,7 +13,10 @@ class CustomerUpdate extends Component {
             cakeID: '',
             venue: '',
             entertainment: '',
-            budget: 0
+            budget: 0,
+            message: '',
+            success: false,
+            customer: []
         };
         this.onClickUpdate = this.onClickUpdate.bind(this);
         this.render = this.render.bind(this);
