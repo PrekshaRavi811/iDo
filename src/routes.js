@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const app = express();
 const SELECT_ALL_FOOD = "select * from food;"
+const SELECT_ALL_GUEST = "select * from guests;"
 const SELECT_ALL_CAKE = "select * from cake;"
 const SELECT_ALL_ENTERTAINMENT = "select * from entertainment;"
 const SELECT_ALL_DRESS = "select * from dress;"
@@ -623,6 +624,61 @@ app.get('/venue/sortPrice', (req, res) => {
     connection.query(SORT_QUERY, (error, results) => {
         res.json ({
             data: results
+        });
+    });
+});
+
+app.get('/customer/add', (req, res) => {
+    const {id, name, email, foodID, dressID, cakeID, venue, entertainment, budget} = req.query;
+    const INSERT_CUSTOMER = 'INSERT INTO customer VALUES (\'' + id + '\',\''+ name + '\', \'' + email
+        + '\',\'' + foodID + '\',\'' + dressID + '\',\'' + cakeID + '\',\'' + venue + '\',\'' + entertainment + '\','
+        + budget + ');';
+    connection.query(ISOLATION_LEVEL_RC, (error, results) => {
+        if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+        connection.query(TRANSACTION_START, (error, results) => {
+            if (error) console.log("START ERROR\n" + TRANSACTION_START);
+            connection.query(INSERT_CUSTOMER, (error, results) => {
+                if (error) console.log("Adding Error\n" + INSERT_CUSTOMER);
+                connection.query(TRANSACTION_COMMIT, (error, results) => {
+                    if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                });
+            });
+        });
+    });
+});
+
+app.get('/customer/find', (req, res) => {
+    const { id } = req.query;
+    const FIND_CUSTOMER = 'SELECT * FROM customer WHERE id = \'' + id + '\';'
+    connection.query(FIND_CUSTOMER, (error, results) => {
+        res.json ({
+            data: results
+        });
+    });
+});
+
+app.get('/customer/update', (req, res) => {
+    const { id, name, email, foodID, dressID, cakeID, venue, entertainment, budget } = req.query;
+    const UPDATE_CUSTOMER = 'UPDATE customer SET id = \'' + id
+        + '\', name = \''+ name
+        + '\', email = \'' + email
+        + '\', foodID = \'' + foodID
+        + '\', dressID = \'' + dressID
+        + '\', cakeID = \'' + cakeID
+        + '\', venue = \'' + venue
+        + '\', entertainment = \'' + entertainment
+        + '\', budget = ' + budget
+        + ' WHERE id = \'' + id + '\';';
+    connection.query(ISOLATION_LEVEL_RC, (error, results) => {
+        if (error) console.log("Isolation Error\n" + ISOLATION_LEVEL_RC);
+        connection.query(TRANSACTION_START, (error, results) => {
+            if (error) console.log("START ERROR\n" + TRANSACTION_START);
+            connection.query(UPDATE_CUSTOMER, (error, results) => {
+                if (error) console.log("Adding Error\n" + UPDATE_CUSTOMER);
+                connection.query(TRANSACTION_COMMIT, (error, results) => {
+                    if (error) console.log("Commit Error\n" + TRANSACTION_COMMIT);
+                });
+            });
         });
     });
 });
