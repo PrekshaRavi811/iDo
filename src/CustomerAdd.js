@@ -30,43 +30,43 @@ class CustomerAdd extends Component{
 
     handleEmailOnChange(e) {
         this.setState({
-            cuisine: e.target.value,
+            email: e.target.value,
         })
     };
 
     handleFoodOnChange(e) {
         this.setState({
-            phone: e.target.value,
+            foodID: e.target.value,
         })
     };
 
     handleDressOnChange(e) {
         this.setState({
-            price: e.target.value,
+            dressID: e.target.value,
         })
     };
 
     handleCakeOnChange(e) {
         this.setState({
-            phone: e.target.value,
+            cakeID: e.target.value,
         })
     };
 
     handleVenueOnChange(e) {
         this.setState({
-            phone: e.target.value,
+            venue: e.target.value,
         })
     };
 
     handleEntertainmentOnChange(e) {
         this.setState({
-            phone: e.target.value,
+            entertainment: e.target.value,
         })
     };
 
     handleBudgetOnChange(e) {
         this.setState({
-            phone: e.target.value,
+            budget: e.target.value,
         })
     };
 
