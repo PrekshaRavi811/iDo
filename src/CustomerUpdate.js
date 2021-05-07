@@ -151,18 +151,18 @@ class CustomerUpdate extends Component {
                 {this.state.success && this.state.customer && <input type="text" id="name" value={this.state.name} onChange={ (e) => this.handleNameOnChange(e) } />}
                 {this.state.success && <p>Email</p>}
                 {this.state.success && this.state.email && <input type="text" id="email" value={this.state.email} onChange={ (e) => this.handleEmailOnChange(e) }/>}
-                {this.state.success && <p>Food company of choice</p>}
+                {this.state.success && <p>ID of Food company of choice</p>}
                 {this.state.success && this.state.foodID && <input type="text" id="foodID" value={this.state.foodID} onChange={ (e) => this.handleFoodOnChange(e) }/>}
-                {this.state.success && <p>Dress company of choice</p>}
+                {this.state.success && <p>ID of Dress company of choice</p>}
                 {this.state.success && this.state.dressID && <input type="text" id="dressID" value={this.state.dressID} onChange=
                     { (e) => this.handleDressOnChange(e) }/>}
-                {this.state.success && <p>Cake company of choice</p>}
+                {this.state.success && <p>ID of Cake company of choice</p>}
                 {this.state.success && this.state.cakeID && <input type="text" id="cakeID" value={this.state.cakeID} onChange=
                     { (e) => this.handleCakeOnChange(e) }/>}
-                {this.state.success && <p>Venue of choice</p>}
+                {this.state.success && <p>ID of Venue of choice</p>}
                 {this.state.success && this.state.venue && <input type="text" id="venue" value={this.state.venue} onChange=
                     { (e) => this.handleVenueOnChange(e) }/>}
-                {this.state.success && <p>Entertainment of choice</p>}
+                {this.state.success && <p>ID of Entertainment of choice</p>}
                 {this.state.success && this.state.entertainment && <input type="text" id="entertainment" value={this.state.entertainment} onChange=
                     { (e) => this.handleEntertainmentOnChange(e) }/>}
                 {this.state.success && <p>Budget</p>}
